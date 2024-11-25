@@ -1,0 +1,18 @@
+{
+  "name": "lynq-js",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "lynq public scripts",
+  "scripts": {
+    "build": "rollup -c",
+    "watch": "rollup -c -w"
+  },
+  "author": "Harsh Turna",
+  "license": "ISC",
+  "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
+    "javascript-obfuscator": "^4.1.1",
+    "rollup": "^4.27.4",
+    "rollup-plugin-obfuscator": "^1.1.0"
+  }
+}
