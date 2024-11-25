@@ -536,8 +536,7 @@
         url: window.location.href,
         pathname: window.location.pathname,
         referrer: referrer || "Direct",
-        // TODO: Temp - delete after testing
-        dataDomain: this.dataDomain || "clair.byharsh.com",
+        dataDomain: this.dataDomain,
         clientId: this.clientId,
         sessionId: this.session.sessionId,
         pageLoadId: this.pageLoadId,
