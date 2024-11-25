@@ -1,7 +1,7 @@
 (function () {
   "use strict";
   const CONFIG = {
-    ENDPOINT: "http://localhost:3000/api/lynq",
+    ENDPOINT: "https://lynq.byharsh.com/api/lynq",
     SESSION_DURATION: 10 * 60 * 1000,
     STORAGE_KEYS: {
       SESSION_ID: "au_si",
