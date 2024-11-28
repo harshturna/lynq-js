@@ -390,7 +390,7 @@
 
   class AnalyticsTracker {
     constructor() {
-      this.scriptElement = document.currentScript;
+      this.scriptElement = document.querySelector("[data-script-id='lynq']");
       this.dataDomain = this.scriptElement?.getAttribute("data-domain");
       this.clientId = this.getOrCreateClientId();
       this.initialPathname = window.location.pathname;
