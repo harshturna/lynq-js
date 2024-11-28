@@ -1,6 +1,6 @@
 {
   "name": "lynq-js",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "type": "module",
   "description": "lynq public scripts",
   "scripts": {
