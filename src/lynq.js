@@ -170,7 +170,6 @@
         this.setupPerformanceObservers();
         this.setupNavigationTracking();
         this.setupResourceTracking();
-        this.setupVisibilityTracking();
       } catch (error) {
         console.error("Failed to initialize performance tracking:", error);
       }
@@ -337,18 +336,6 @@
       this.resourceObserver.observe({ type: "resource", buffered: true });
     }
 
-    setupVisibilityTracking() {
-      window.addEventListener("visibilitychange", () => {
-        if (document.visibilityState === "hidden") {
-          this.sendFinalMetrics();
-        }
-      });
-
-      window.addEventListener("beforeunload", () => {
-        this.sendFinalMetrics();
-      });
-    }
-
     collectPerformanceMetrics() {
       // Collect memory usage if available
       if (performance.memory) {
@@ -361,21 +348,6 @@
         performance.getEntriesByType("resource").length;
     }
 
-    sendFinalMetrics() {
-      if (!this.finalMetricsSent) {
-        this.finalMetricsSent = true;
-        this.collectPerformanceMetrics();
-
-        this.analyticsTracker.trackEvent(
-          "web-vitals",
-          {
-            ...this.metrics,
-          },
-          { keepalive: true }
-        );
-      }
-    }
-
     destroy() {
       this.observers.forEach((observer) => observer.disconnect());
       this.observers.clear();
@@ -383,8 +355,6 @@
       if (this.resourceObserver) {
         this.resourceObserver.disconnect();
       }
-
-      this.sendFinalMetrics();
     }
   }
 
@@ -585,11 +555,13 @@
 
       // page close handler
       window.addEventListener("beforeunload", () => {
+        this.performanceTracker.collectPerformanceMetrics();
         this.trackEvent(
           CONFIG.EVENTS.SESSION_END,
           {
             sessionDuration: Date.now() - this.session.startTime,
             currentUrl: window.location.href,
+            metrics: { ...this.performanceTracker.metrics },
           },
           { keepalive: true }
         );
